@@ -1,0 +1,10 @@
+- hosts: localhost
+  gather_facts: no
+  vars:
+    now_date: "{{ lookup('pipe','date +\"%Y%m%d_%H%M%S\"') }}"
+    one_day_ago: "{{ lookup('pipe', 'date -d \"1 day ago\" +\"%Y%m%d\"') }}"
+  tasks:
+  - debug:
+      msg: "{{ now_date }}"
+  - debug:
+      msg: "{{ one_day_ago }}"
