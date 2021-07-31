@@ -4,5 +4,6 @@
     str: "Target IP Address: 127.22.4.1 xxxx"
   tasks:
     - debug:
+        #Extract IP Address
         msg: "{{ str | regex_replace('^.*Address:\\s([\\d.]{1,})\\s[a-z]*$', '\\1') }}"
 
