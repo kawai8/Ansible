@@ -12,3 +12,18 @@
         - { name: host1, ip: 10.10.1.10 }
         - { name: host2, ip: 10.10.1.11 }
         - { name: host3, ip: 10.10.1.12 }
+
+
+- hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: Insert block in test.txt
+      blockinfile:
+        path: /foo/var/test.txt
+        backup: yes
+        create: yes
+        insertafter: line03
+        #lnsertbefore:
+        block: |
+          lineA 
+          lineB 
