@@ -1,6 +1,56 @@
 # Conditionals
 # https://docs.ansible.com/ansible/latest/user_guide/playbooks_conditionals.html
 
+# boolean
+when: var
+when: not var
 
 
+# is
+when: var is defined
+when: var is not defined
+
+when: result is failed
+when: result is succeeded
+when: result is skipped
+
+
+# in / find
+特定の文字列が入っていない
+when: "'評価したい文字列' not in cmd_result.stdout"
+when: result.stdout.find('評価したい文字列') == -1
+
+特定の文字列が入っている
+when: "'評価したい文字列' in cmd_result.stdout"
+when: result.stdout.find('評価したい文字列') != -1
+
+
+# AND
+when:
+  - ansible_facts['distribution'] == "CentOS"
+  - ansible_facts['distribution_major_version'] == "6"
+
+when: ansible_facts['distribution'] == "CentOS" and ansible_facts['distribution'] == "CentOS"
+
+
+# OR
+when: ansible_facts['distribution'] == "CentOS" or ansible_facts['distribution'] == "Debian"
+
+when: ansible_facts['distribution'] == "CentOS" or
+      ansible_facts['distribution'] == "Debian"
+
+when: >
+  ('apple' in result) or
+  ('orange' in result) or
+  ('banana' in result)
+
+
+
+---
+# EXAMPLE
+when: ansible_facts['os_family'] == "Debian"
+      
+when: (ansible_facts['distribution'] == "CentOS" and ansible_facts['distribution_major_version'] == "6") or
+      (ansible_facts['distribution'] == "Debian" and ansible_facts['distribution_major_version'] == "7")
+      
 
