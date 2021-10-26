@@ -1,4 +1,7 @@
 ---
+# Insert/update/remove a text block surrounded by marker lines
+# https://docs.ansible.com/ansible/latest/collections/ansible/builtin/blockinfile_module.html
+
 - hosts: localhost
   gather_facts: no
   tasks:
