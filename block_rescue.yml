@@ -1,0 +1,4 @@
+---
+# Rescue blocks specify tasks to run when an earlier task in a block fails. 
+# https://docs.ansible.com/ansible/latest/user_guide/playbooks_blocks.html
+
