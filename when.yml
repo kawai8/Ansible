@@ -1,5 +1,6 @@
 # Conditionals
 # https://docs.ansible.com/ansible/latest/user_guide/playbooks_conditionals.html
+# 条件式に変数を含む場合は{{}}でくくらない
 
 # boolean
 when: var
