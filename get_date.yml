@@ -1,3 +1,7 @@
+---
+# Lookup plugins retrieve data from outside sources such as files, databases, key/value stores, APIs, and other services. 
+# https://docs.ansible.com/ansible/latest/plugins/lookup.html
+
 - hosts: localhost
   gather_facts: no
   vars:
@@ -8,3 +12,4 @@
       msg: "{{ now_date }}"
   - debug:
       msg: "{{ one_day_ago }}"
+
