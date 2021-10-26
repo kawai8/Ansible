@@ -2,3 +2,20 @@
 # Rescue blocks specify tasks to run when an earlier task in a block fails. 
 # https://docs.ansible.com/ansible/latest/user_guide/playbooks_blocks.html
 
+ tasks:
+ - name: Handle the error
+   block:
+     - name: Print a message
+       debug:
+         msg: 'task1'
+
+     - name: Force a failure
+       command: /bin/false
+
+     - name: Never print this
+       debug:
+         msg: 'task2'
+   rescue:
+     - name: Print when errors
+       debug:
+         msg: 'I caught an error, can do stuff here to fix it, :-)'
