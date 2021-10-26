@@ -1,1 +1,24 @@
 ---
+# Tasks in the always section run no matter what the task status of the previous block is.
+# https://docs.ansible.com/ansible/latest/user_guide/playbooks_blocks.html
+
+ - name: Block with always section
+   block:
+     - name: Print a message1
+       debug:
+         msg: 'task1'
+         
+     - name: Print a message2
+       debug:
+         msg: 'task2'
+         
+     - name: Force a failure
+       command: /bin/false
+
+     - name: Never print this
+       debug:
+         msg: 'task3'
+   always:
+     - name: Always do this
+       debug:
+         msg: "This always executes"
