@@ -1,4 +1,6 @@
 ---
+# replace text in a string with regex
+# https://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html
 
 - hosts: localhost
   gather_facts: no
@@ -9,3 +11,25 @@
         #Extract IP Address
         msg: "{{ str | regex_replace('^.*Address:\\s([\\d.]{1,})\\s[a-z]*$', '\\1') }}"
 
+
+
+
+## Convert "ansible" to "able"
+#{{ 'ansible' | regex_replace('^a.*i(.*)$', 'a\\1') }}
+## => 'able'
+#
+## Convert "foobar" to "bar"
+#{{ 'foobar' | regex_replace('^f.*o(.*)$', '\\1') }}
+## => 'bar'
+#
+## Convert "localhost:80" to "localhost, 80" using named groups
+#{{ 'localhost:80' | regex_replace('^(?P<host>.+):(?P<port>\\d+)$', '\\g<host>, \\g<port>') }}
+## => 'localhost, 80'
+#
+## Convert "localhost:80" to "localhost"
+#{{ 'localhost:80' | regex_replace(':80') }}
+## => 'localhost'
+#
+## Comment all lines that end with "ar"
+#{{ 'CAR\ntar\nfoo\nbar\n' | regex_replace('^(.ar)$', '#\\1', multiline=True, ignorecase=True) }}
+## => '#CAR\n#tar\nfoo\n#bar\n
