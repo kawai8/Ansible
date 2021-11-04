@@ -13,6 +13,7 @@
         msg: "{{ str | regex_replace('^.*Address:\\s([\\d.]{1,})\\s[a-z]*$', '\\1') }}"
 
 
+
 ---
 # Convert "ansible" to "able"
 {{ 'ansible' | regex_replace('^a.*i(.*)$', 'a\\1') }}
@@ -33,3 +34,8 @@
 # Comment all lines that end with "ar"
 {{ 'CAR\ntar\nfoo\nbar\n' | regex_replace('^(.ar)$', '#\\1', multiline=True, ignorecase=True) }}
 # => '#CAR\n#tar\nfoo\n#bar\n'
+---
+
+# extract_2nd_octet: "{{ ansible_ssh_host | regex_replace('^\\d{1,}\\.(\\d{1,})\\.\\d{1,}\\.\\d{1,}', '\\1') }}"
+
+
