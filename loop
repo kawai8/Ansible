@@ -1,0 +1,17 @@
+---
+# loop
+
+- hosts: localhost
+ tasks:
+    - block:
+      - name: execute uname command
+        shell: uname -n
+        delegate_to: "{{ item }}"
+        delegate_facts: false
+        loop:
+          - target1
+          - target2
+      - name: post_tasks
+        include_tasks: post_tasks.yml
+      when: '"xxxx" in type'
+
