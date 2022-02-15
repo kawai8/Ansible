@@ -1,0 +1,12 @@
+---
+# https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html#with-sequence
+
+- hosts: localhost
+  gather_facts: no
+
+  tasks:
+  - name: range
+    debug:
+      msg: "{{ 'dir_%02d' | format(item) }}"
+    loop: "{{ range(0, 4)|list }}"
+    
