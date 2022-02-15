@@ -1,0 +1,12 @@
+---
+# https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html#with-sequence
+
+
+- hosts: localhost
+  gather_facts: no
+
+  tasks:
+  - name: with_sequence
+    debug:
+      msg: "{{ item }}"
+    with_sequence: start=0 end=10 format=dir_%02d
