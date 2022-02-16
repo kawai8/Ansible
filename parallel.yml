@@ -1,0 +1,20 @@
+---
+
+- hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: line
+      shell: echo "-------------------------------" >> ./test.log
+
+    - name: playbook start
+      shell: echo "playbook start $(date +%Y.%m.%d_%H.%M.%S)" >> ./test.log
+
+    - name: with_seq_nohup
+      shell: nohup bash -c 'time sleep 30; echo "{{ item }} $(date +%Y.%m.%d_%H.%M.%S)" 2>&1'  >> ./test.log;
+      with_sequence: start=0 end=10 stride=1 format=dir_%02d
+      async: 60
+      poll: 0
+
+    - name: playbook end
+      shell: echo "playbook end   $(date +%Y.%m.%d_%H.%M.%S)" >> ./test.log
