@@ -1,0 +1,26 @@
+---
+# Replace all instances of a particular string in a file using a back-referenced regular expression
+# https://docs.ansible.com/ansible/latest/collections/ansible/builtin/replace_module.html
+
+- hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: comment out
+      replace:
+        path: /foo/var/file1.txt
+        backup: yes
+        after: '<VirtualHost [*]>'
+        before: '</VirtualHost>'
+        regexp: '^(.+)$'
+        replace: '# \1'
+
+    - name: modify a file with loop
+      replace:
+        path: /foo/var/file1.txt
+        backup: yes
+        regexp: "{{ item.str_reg }}"
+        replace: "{{ item.replace_value }}"
+      with_items:
+        - { str_reg: '^cat.*$', replace_value: 'black cat' }
+        - { str_reg: '^dog.*$', replace_value: 'white dog' }
+
