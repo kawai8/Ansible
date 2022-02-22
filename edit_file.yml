@@ -1,0 +1,20 @@
+---
+
+- hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: read file
+      shell: cat test.txt | grep ^foo1
+      changed_when: false
+      failed_when: false
+      register: result
+    - block:
+      - replace: #comment out
+          path: test.txt
+          regexp: '^(foo1.*)$'
+          replace: '# \1'
+      - lineinfile:
+          path: test.txt
+          line: 'foo2'
+          insertafter: '# foo1.*'
+      when: result.stdout != ""
