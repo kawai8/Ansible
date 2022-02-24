@@ -1,4 +1,6 @@
 ---
+# This module asserts that given expressions are true with an optional custom message.
+# https://docs.ansible.com/ansible/latest/collections/ansible/builtin/assert_module.html
 
 - hosts: localhost
   gather_facts: no
