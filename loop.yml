@@ -1,8 +1,15 @@
 ---
-# loop
+# https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html
+# https://docs.ansible.com/ansible/2.9_ja/user_guide/playbooks_loops.html
 
+# loop
+# with_<lookup>
+# until
+
+
+# standard loops
 - hosts: localhost
- tasks:
+  tasks:
     - block:
       - name: execute uname command
         shell: uname -n
@@ -14,4 +21,17 @@
       - name: post_tasks
         include_tasks: post_tasks.yml
       when: '"xxxx" in type'
+
+
+
+
+# loop + range (with_sequence)
+- hosts: localhost
+  tasks:
+  - name: range
+    debug:
+      msg: "{{ 'dir_%02d' | format(item) }}"
+    loop: "{{ range(0, 4)|list }}"
+
+
 
