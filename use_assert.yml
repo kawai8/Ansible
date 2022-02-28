@@ -18,7 +18,7 @@
           - item.col3 in ["staging", "production"]
           - item.col4|int <= 100
           - item.col4|int >= 0
-          - item.col5 != ''
+          - item.col5
           - "'xxx' in item.col6"
         fail_msg: "invalid data"
         success_msg: "passed!"
