@@ -1,0 +1,27 @@
+---
+# loop with registered variables, and matching item add to list.
+
+- hosts: localhost
+  gather_facts: no
+  vars:
+    match_list: []
+
+  tasks:
+    - name: read file
+      shell: cat foo.txt
+      register: result
+      changed_when: false
+
+    - name: make match list
+      set_fact:
+        match_list: "{{ match_list + [match_line] }}"
+      loop: "{{ result.stdout_lines }}"
+      loop_control:
+        loop_var: match_line
+        label: match_line
+      when: match_line is match('^FooVar\s.*$')
+
+    - name: print match list
+      debug:
+        msg: "{{ match_list }}"
+
