@@ -14,12 +14,12 @@
 
     - name: make match list
       set_fact:
-        match_list: "{{ match_list + [match_line] }}"
+        match_list: "{{ match_list + [line] }}"
       loop: "{{ result.stdout_lines }}"
       loop_control:
-        loop_var: match_line
-        label: match_line
-      when: match_line is match('^FooVar\s.*$')
+        loop_var: line
+        label: line
+      when: line is match('^FooVar\s.*$')
 
     - name: print match list
       debug:
