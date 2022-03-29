@@ -1,0 +1,20 @@
+---
+# https://docs.ansible.com/ansible/latest/collections/ansible/builtin/fileglob_lookup.html
+
+# - Patterns are only supported on files, not directory/paths.
+# - Matching is against local system files on the Ansible controller.
+#   To iterate a list of files on a remote node, use the ansible.builtin.find module.
+# - Returns a string list of paths joined by commas, or an empty list if no files match. 
+
+
+- hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: use_with_fileglob
+      debug:
+        msg: "{{ file_name }}"
+      with_fileglob:
+        - /home/sho/lab/ansible/foo/*.txt
+      loop_control:
+        loop_var: file_name
+        
