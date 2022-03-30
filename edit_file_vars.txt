@@ -1,0 +1,38 @@
+◆vars.yml
+---
+val: 999
+edit_lines:
+  - file_name: foo1.txt
+    parameter: para1
+  - file_name: foo1.txt
+    parameter: para2
+  - file_name: foo2.txt
+    parameter: para3
+
+
+◆main.yml
+---
+- hosts: localhost
+  gather_facts: no
+  tasks:
+    - name: read vars
+      include_vars: vars.yml
+
+    - include_tasks: run_edit.yml
+      with_items: "{{ edit_lines }}"
+      loop_control:
+        loop_var: edit_line
+
+
+◆run_edit.yml(comment out and add line)
+- block:
+  - name: "comment out {{ edit_line.parameter }} in {{ edit_line.file_name }}"
+    replace:
+      path: "{{ edit_line.file_name }}"
+      regexp: '^({{ edit_line.parameter }}:.*)$'
+      replace: '# \1'
+  - name: "set {{ edit_line.parameter }}: {{ val }}"
+    lineinfile:
+      path: "{{ edit_line.file_name }}"
+      line: "{{ edit_line.parameter }}: {{ val }}"
+      insertafter: "# {{ edit_line.parameter }}.*"
