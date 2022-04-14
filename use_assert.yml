@@ -20,6 +20,10 @@
           - item.col4|int >= 0
           - item.col5
           - "'xxx' in item.col6"
+          - (item.col1 and col2 and col3 == 'foo')
+            or (item.col3 == 'var')
+          - item.col6|int is match('^[0-6]{1}$')
+          - item.col6|int is match('^(0|1|2|3|4|5|6){1}$')')
         fail_msg: "invalid data"
         success_msg: "passed!"
         quiet: true
