@@ -10,3 +10,4 @@
       msg: "{{ item }}"
     with_sequence: start=0 end=10 stride=1 format=dir_%02d
     #with_sequence: start=20 end=0 stride=-1 format=dir_%02d
+    #with_sequence: count=5
