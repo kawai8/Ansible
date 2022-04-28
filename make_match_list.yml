@@ -21,7 +21,8 @@
         label: line
       when: line is match('^FooVar\s.*$')
 
+    - debug: var=match_list
+    
     - name: print match list
       debug:
         msg: "{{ match_list }}"
-
