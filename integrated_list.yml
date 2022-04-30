@@ -1,0 +1,23 @@
+- hosts: localhost
+  gather_facts: no
+  vars:
+    file: ['file1.txt','file2.txt']
+    dir: ['a','b','c','d','e','f']
+
+  tasks:
+    - name: integrate two lists
+      set_fact:
+        integrated_list: "{{ file | zip(dir) | list }}"
+    - debug: var=integrated_list
+
+    - name: print
+      debug:
+        msg: "{{ item.0 }} -- {{ item.1 }}"
+      with_list: "{{ integrated_list }}"
+      #loop: "{{ integrated_list }}"
+
+    - name: copy
+      copy:
+        src: "{{ item.0 }}"
+        dest: "{{ item.1 }}"
+      loop: "{{ test }}"
