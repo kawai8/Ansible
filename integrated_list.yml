@@ -10,6 +10,7 @@
         integrated_list: "{{ file | zip(dir) | list }}"
     - debug: var=integrated_list
 
+    # repeat count is 2
     - name: print
       debug:
         msg: "{{ item.0 }} -- {{ item.1 }}"
@@ -21,3 +22,12 @@
         src: "{{ item.0 }}"
         dest: "{{ item.1 }}"
       loop: "{{ test }}"
+
+    # repeat count is 6
+    - name: 
+      debug:
+        msg: "{{ item.0 }} -- {{ item.1 }}
+      with_together:
+        - "{{ file }}"
+        - "{{ dir }}"
+        
