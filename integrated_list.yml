@@ -1,8 +1,8 @@
 - hosts: localhost
   gather_facts: no
   vars:
-    file: ['file1.txt','file2.txt']
-    dir: ['a','b','c','d','e','f']
+    file: ['file1.txt','file2.txt']   # 2 items
+    dir: ['a','b','c','d','e','f']    # 6 items
 
   tasks:
     - name: integrate two lists
