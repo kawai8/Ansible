@@ -22,6 +22,7 @@
       when: line is match('^FooVar\s.*$')
 
     - debug: var=match_list
+    - debug: var=match_list|length
     
     - name: print match list
       debug:
