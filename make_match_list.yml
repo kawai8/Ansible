@@ -14,11 +14,11 @@
 
     - name: make match list
       set_fact:
-        match_list: "{{ match_list + [line] }}"
+        match_list: "{{ match_list + [((my_idx+1)|string).zfill(2) + ' ' + line] }}"
       loop: "{{ result.stdout_lines }}"
       loop_control:
         loop_var: line
-        label: line
+        index_var: my_idx
       when: line is match('^FooVar\s.*$')
 
     - debug: var=match_list
