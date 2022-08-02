@@ -1,0 +1,6 @@
+
+# https://docs.ansible.com/ansible/latest/plugins/lookup.html
+
+current_date: "{{ lookup('pipe','date +\"%Y%m%d_%H%M%S\"') }}"
+one_hour_later: "{{ lookup('pipe','date -d \"1 hour ago\" +\"%Y-%m-%d %H:%M:%S\"') }}"
+
