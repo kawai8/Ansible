@@ -3,4 +3,5 @@
 
 current_date: "{{ lookup('pipe','date +\"%Y%m%d_%H%M%S\"') }}"
 one_hour_later: "{{ lookup('pipe','date -d \"1 hour ago\" +\"%Y-%m-%d %H:%M:%S\"') }}"
+timestamp: "{{ lookup('pipe', 'date +%Y%m%d%H%M%SZ') + 9999999999 | random | to_uuid }}"
 
