@@ -1,0 +1,44 @@
+# auto_env_switch.yml
+---
+- hosts: localhost
+  gather_facts: yes 
+  vars_files: vars.yml
+
+  tasks:
+    - block:
+      - name: Get host_name
+        shell: "uname -n"
+        register: host_name
+
+      - name: Get env 
+        set_fact:
+          env: "{{ host_name.stdout | regex_replace('^(.*)-.*','\\1') }}"
+      - debug: var=env
+
+      - name: validation
+        assert: 
+          that:
+            - env in ['prod', 'test']
+          fail_msg: "Could not retrieve environmental information"
+
+      - name: Set variables according to environment
+        set_fact:
+          var1: "{{ lookup('vars', env).var1 }}"
+          var2: "{{ lookup('vars', env).var2 }}"
+
+    - name:
+      debug:
+        msg: "{{ var1 }}"
+
+
+
+
+# vars.yml
+---
+production:
+  var1: production_var1
+  var2: production_var2
+
+staging:
+  var1: staging_var1
+  var2: staging_var2
