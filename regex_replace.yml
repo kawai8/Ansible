@@ -36,6 +36,7 @@
 # => '#CAR\n#tar\nfoo\n#bar\n'
 ---
 
-# extract_2nd_octet: "{{ ansible_ssh_host | regex_replace('^\\d{1,}\\.(\\d{1,})\\.\\d{1,}\\.\\d{1,}', '\\1') }}"
+# extract 2nd octet
+"{{ ansible_ssh_host | regex_replace('^\\d{1,}\\.(\\d{1,})\\.\\d{1,}\\.\\d{1,}', '\\1') }}"
 
 
