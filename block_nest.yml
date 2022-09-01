@@ -1,0 +1,27 @@
+---
+- hosts: localhost
+  gather_facts: no
+  tasks:
+    - block:
+        - name: task1
+          debug:
+            msg: 'task1'
+        - block:
+            - name: inner task1
+              debug:
+                msg: "inner task1"
+            - name: Force a failure
+              command: /bin/false
+          rescue:
+            - name: inner rescue block
+              debug:
+                msg: "here"
+            - name: Force a failure
+              command: /bin/false
+        - name: Never print this
+          debug:
+            msg: 'task2'
+      rescue:
+        - name: Catch errors in the inner block
+          debug:
+            msg: "catch"
