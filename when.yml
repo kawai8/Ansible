@@ -51,7 +51,7 @@ when: >
 # EXAMPLE
 when: ansible_facts['os_family'] == "Debian"
       
-when: (ansible_facts['distribution'] == "CentOS" and ansible_facts['distribution_major_version'] == "6") or
-      (ansible_facts['distribution'] == "Debian" and ansible_facts['distribution_major_version'] == "7")
+when: (ansible_facts['distribution'] == "Debian" and ansible_facts['distribution_major_version'] == "16") or
+      (ansible_facts['distribution'] == "RedHat" and ansible_facts['distribution_major_version'] >= "7.1")
       
 
