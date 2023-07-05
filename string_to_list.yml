@@ -1,0 +1,21 @@
+---
+- hosts: localhost
+  gather_facts: no
+  vars:
+    servers: "server1, server2"
+
+  tasks:
+    - block:
+      - name: make a list in advance
+        set_fact:
+          list_servers: "{{ list_servers|default([]) + 
+                        [(servers|regex_replace('\\s*', '')).split(',')] }}"
+      - name: output
+        debug:
+          msg: "{{ item }}"
+        with_items: "{{ list_servers }}"
+
+    - name: convert to a list at run time
+      debug:
+        msg: "{{ item }}"
+      with_items: "{{ (servers|regex_replace('\\s*', '')).split(',') }}"
