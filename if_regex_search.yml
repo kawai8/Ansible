@@ -1,0 +1,21 @@
+- hosts: localhost
+  gather_facts: no
+
+  tasks:
+    - name: cat
+      shell: cat result.txt
+      register: result
+      changed_when: false
+
+    - name: check
+      set_fact:
+        status: >-
+          {%- if not result.stdout|regex_search("hoge.*Active") -%}
+            ansA
+          {%- elif not result.stdout|regex_search("hoge.*Active") -%}
+            ansB
+          {%- else -%}
+            OTHER
+          {%- endif -%}
+
+    - debug: var=status
