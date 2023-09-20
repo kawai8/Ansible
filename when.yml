@@ -6,15 +6,12 @@
 when: var
 when: not var
 
-
 # is
 when: var is defined
 when: var is not defined
-
 when: result is failed
 when: result is succeeded
 when: result is skipped
-
 
 # in / find
 特定の文字列が入っていない
@@ -53,5 +50,11 @@ when: ansible_facts['os_family'] == "Debian"
       
 when: (ansible_facts['distribution'] == "Debian" and ansible_facts['distribution_major_version'] == "16") or
       (ansible_facts['distribution'] == "RedHat" and ansible_facts['distribution_major_version'] >= "7.1")
-      
 
+when: result_stdout|int == 0
+when: result.stdout_lines|length > 1
+failed_when: result.rc == 0
+failed_when: result.rc != 0
+failed_when: result.rc not in [0,1]      
+failed_when: "'ERROR' in result.stdout"
+changed_when: result.stderr != ''
