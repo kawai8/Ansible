@@ -1,0 +1,27 @@
+# Interacts with HTTP and HTTPS web services
+# https://docs.ansible.com/ansible/latest/collections/ansible/builtin/uri_module.html
+
+---
+- hosts: localhost
+  gather_facts: no
+  vars:
+    access_token: xxxxxxxxxxx
+    timeout_sec: 20
+    retry_cnt: 5
+    delay_sec : 15
+
+  tasks:
+    - name: wait until process is completed
+      uri:
+        url: http://www.example.com
+        method: GET
+        headers:
+          Accept: Authorization/Api
+          charset: UTF-8
+          Authorization: "Bearer {{ access_token }}"
+        status_code: 200
+        timeout: "{{ timeout_sec }}"
+      register: result
+      until: ('completed' in result.json.key1)
+      retries: "{{ retry_cnt }}"
+      delay: "{{ delay_sec }}"
