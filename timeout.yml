@@ -1,0 +1,21 @@
+# https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_async.html
+
+- hosts: localhost
+  gather_facts: no
+  vars:
+    wait_sec: 120
+    async_sec : 1
+
+  tasks:
+    - name: task1
+      debug:
+        msg: "start playbook"
+
+    - name: sleep {{ wait_sec }}
+      shell: sleep "{{ wait_sec }}"
+      async: "{{ async_sec }}"
+      ignore_errors: true
+
+    - name: task2
+      debug:
+        msg: "end"
