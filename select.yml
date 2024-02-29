@@ -1,5 +1,4 @@
 ---
-
 - hosts: localhost
   gather_facts: false
   vars:
@@ -18,3 +17,14 @@
     - name: select match
       debug:
         msg: "{{ users | select('match', '.+[3-4]') | list }}"
+
+
+#########################################
+# Return
+#TASK [select match] ********************
+#ok: [localhost] => {
+#    "msg": [
+#        "user3 - \"333\"", 
+#        "user4 - \"444\""
+#    ]
+#}
