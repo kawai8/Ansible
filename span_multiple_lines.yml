@@ -23,11 +23,11 @@
     fold_same_newlines: "a b\nc d\n  e\nf\n"
 
   tasks:
-    - name: Literal Block Scalar # 改行と、末尾にあるスペースが含まれる
+    - name: Literal Block Scalar  # include the newlines and any trailing spaces
       debug:
         msg: "{{ include_newlines }}"
 
-    - name: Folded Block Scalar  # 改行を折り返してスペースに置き換える
+    - name: Folded Block Scalar  # fold newlines to spaces
       debug:
         msg: "{{ fold_newlines }}"
 
