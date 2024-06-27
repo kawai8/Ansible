@@ -17,8 +17,6 @@
             fail_msg: "The specified input data is invalid."
             success_msg: "PASS"  # added in Ansible 2.7
             quiet: false  # added in Ansible 2.8
-          register: input_assert
-
 
 
 # -------------------------------------
