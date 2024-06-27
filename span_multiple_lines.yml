@@ -1,0 +1,40 @@
+- hosts: localhost
+  gather_facts: no
+  vars:
+    include_newlines: |  # |- Remove the last newline 
+                exactly as you see
+                will appear these three
+                lines of poetry
+
+    fold_newlines: >  # >- Remove the last newline 
+                this is really a
+                single line of text
+                despite appearances
+
+    fold_some_newlines: >
+        a
+        b
+
+        c
+        d
+          e
+        f
+
+    fold_same_newlines: "a b\nc d\n  e\nf\n"
+
+  tasks:
+    - name: Literal Block Scalar # 改行と、末尾にあるスペースが含まれる
+      debug:
+        msg: "{{ include_newlines }}"
+
+    - name: Folded Block Scalar  # 改行を折り返してスペースに置き換える
+      debug:
+        msg: "{{ fold_newlines }}"
+
+    - name: enforce a newline to be kept
+      debug:
+        msg: "{{ fold_some_newlines }}"
+
+    - name: enforce a newline to be kept
+      debug:
+        msg: "{{ fold_same_newlines }}"
