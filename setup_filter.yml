@@ -1,0 +1,28 @@
+---
+- hosts: localhost
+  gather_facts: no
+  vars:
+    os: 'Redhat'
+    version: 8.7
+
+  tasks:
+    - name: Gather variables
+      setup:
+        filter:
+          - 'ansible_os_family'
+          - 'ansible_distribution_version'
+
+    - debug: var=ansible_os_family,ansible_distribution_version
+
+    - name: task1
+      block:
+        - name: task1
+          debug:
+            msg: "stop this playbook"
+        - meta: end_play
+      when: not ((ansible_os_family == 'Redhat') and (7.6 <= ansible_distribution_version|float <= 8.6)) and
+            not ((ansible_os_family == 'Debian') and (16.04 <= ansible_distribution_version|float <= 22.04))
+
+    - name: task2
+      debug:
+        msg: "run task2"
