@@ -6,11 +6,7 @@
   gather_facts: no
   vars:
     filename: file1.csv
-
   tasks:
-    - set_fact:
-        tap_list: []
-
     - name: task1
       set_fact:
         cat_list: "{{ cat_list|default([]) + [catid] }}"
@@ -18,12 +14,11 @@
         catid: "{{ item.split(',')[2] | regex_search('cat.+') }}"
       with_lines: cat "{{ filename }}"
       when: item.strip("'") is search("cat.+")
-    #- debug: var=cat_list
-    - name: list
-      debug:
-        msg: "{{ item }}"
-      loop: "{{ cat_list }}"
-
+    - debug: var=cat_list
+    #- name: list
+    #  debug:
+    #    msg: "{{ item }}"
+    #  loop: "{{ cat_list }}"
 
 #cat file1.csv
 #'111,'abc,'dog1'
