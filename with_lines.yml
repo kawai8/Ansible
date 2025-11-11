@@ -11,7 +11,7 @@
       set_fact:
         cat_list: "{{ cat_list|default([]) + [catid] }}"
       vars:
-        catid: "{{ item.split(',')[2] | regex_search('cat.+') }}"
+        catid: "{{ item.split(',')[2].strip(\"'\") | regex_search('cat.+') }}"
       with_lines: cat "{{ filename }}"
       when: item.strip("'") is search("cat.+")
     - debug: var=cat_list
