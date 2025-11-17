@@ -1,0 +1,40 @@
+---
+- hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Asynchronous shell task
+      shell: sleep 6; echo "{{ item }} $(date +%Y.%m.%d_%H.%M.%S)"
+      with_sequence: start=1 end=3 stride=1 format=dir_%02d
+      register: result
+      changed_when: false
+      async: 60
+      poll: 0
+    - debug: var=result.results 
+
+    - name: Wait for asynchronous job to end 
+      async_status:
+        jid: "{{ item.ansible_job_id }}"
+      loop: "{{ result.results }}"
+      loop_control:
+        label: "{{ item.item }}"
+      register: result2
+      changed_when: false
+      until: result2 is finished
+      retries: 3
+      delay: 5
+    - debug: var=result2.results 
+
+    - name: Get each stdout
+      debug:
+        msg: "{{ item.stdout }}"
+      loop: "{{ result2.results }}"
+      loop_control:
+        label: "{{ item.item.item }}"
+
+    - name: Clean up async file
+      async_status:
+        jid: "{{ item.ansible_job_id }}"
+        mode: cleanup
+      loop: "{{ result.results }}"
+      loop_control:
+        label: "{{ item.ansible_job_id }}"
